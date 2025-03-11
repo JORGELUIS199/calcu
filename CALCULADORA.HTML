@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Aplicación</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            text-align: center;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flower {
+            width: 100px;
+            margin-left: 10px;
+            position: relative;
+            top: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            flex: 1;
+        }
+        .column {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+            color: white;
+            min-width: 200px;
+        }
+        .food {
+            background: #E6A80E;
+        }
+        .drink {
+            background: #E66A0E;
+        }
+        .extras {
+            background: #E6DD0E;
+        }
+        h2 {
+            margin: 0;
+            padding: 10px;
+            display: inline-block;
+            background-color: black;
+            border-radius: 20px;
+        }
+        .button {
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            border-radius: 5px;
+            color: black;
+            padding: 20px;
+            margin: 10px 0;
+            cursor: pointer;
+            font-size: 20px;
+            transition: background-color 0.3s;
+            width: 80%;
+        }
+        .button:hover {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        .count {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 30px; /* Aumentar el tamaño del círculo */
+            height: 30px; /* Aumentar el tamaño del círculo */
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px; /* Aumentar tamaño del texto dentro del círculo */
+        }
+        .decrease-button {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 30px;
+            height: 30px;
+            background-color: yellow;
+            border-radius: 50%;
+            border: none;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            margin: 0;
+            line-height: 1;
+            color: white;
+        }
+        .price {
+            display: none; /* Ocultar precios */
+        }
+        .details-section {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+        }
+        .details {
+            text-align: left;
+            margin: 0;
+            color: black;
+        }
+        .payment-section {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .payment-input {
+            margin-right: 10px;
+            padding: 10px;
+            font-size: 24px; /* Aumentar tamaño del campo de pago */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f2f2f2;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+            color: black;
+            font-weight: bold;
+        }
+        .total-price {
+            color: #cc0000; /* Cambiar color del total a un tono de rojo */
+            font-size: 36px; /* Aumentar tamaño de la letra del total */
+        }
+        .total-label {
+            color: #aa0000; /* Color rojo más tenue para TOTAL */
+            font-size: 20px; /* Tamaño más pequeño */
+        }
+        .change-label {
+            color: #aa0000; /* Color rojo más tenue para CAMBIO */
+            font-size: 20px; /* Tamaño más pequeño */
+        }
+        @media (max-width: 600px) {
+            .container {
+                flex-direction: column;
+            }
+            .column {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            .details-section {
+                position: relative; /* Cambiar a relativo en móviles */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="font-family: 'Quattrocento', serif;">
+            CALCULADORA CHAMARRITAS 
+            <svg class="flower" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+                <path d="M100,30 Q130,60 100,90 Q70,60 100,30" fill="white" stroke="black" stroke-width="1"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(45, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(90, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(135, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(180, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(225, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(270, 100, 100)"/>
+                <path d="M100,30 Q70,60 100,90 Q130,60 100,30" fill="white" stroke="black" stroke-width="1" transform="rotate(315, 100, 100)"/>
+                <circle cx="100" cy="100" r="25" fill="gold" />
+            </svg>
+        </h1>
+    </div>
+    <div class="container">
+        <div class="column food">
+            <h2>COMIDA</h2>
+            <div>
+                <button class="button" onclick="incrementCount('entero')">Entero
+                    <span class="count" id="entero-count">0</span>
+                    <span class="price" id="entero-price">110</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('entero')">-</button>
+                <button class="button" onclick="incrementCount('medio')">Medio
+                    <span class="count" id="medio-count">0</span>
+                    <span class="price" id="medio-price">70</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('medio')">-</button>
+            </div>
+        </div>
+        <div class="column drink">
+            <h2>BEBIDA</h2>
+            <div>
+                <button class="button" onclick="incrementCount('cerveza')">Cerveza
+                    <span class="count" id="cerveza-count">0</span>
+                    <span class="price" id="cerveza-price">21</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('cerveza')">-</button>
+                <button class="button" onclick="incrementCount('litro')">Litro
+                    <span class="count" id="litro-count">0</span>
+                    <span class="price" id="litro-price">14</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('litro')">-</button>
+                <button class="button" onclick="incrementCount('popular')">Popular
+                    <span class="count" id="popular-count">0</span>
+                    <span class="price" id="popular-price">8</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('popular')">-</button>
+                <button class="button" onclick="incrementCount('jugo')">Jugo
+                    <span class="count" id="jugo-count">0</span>
+                    <span class="price" id="jugo-price">15</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('jugo')">-</button>
+                <button class="button" onclick="incrementCount('agua')">Agua
+                    <span class="count" id="agua-count">0</span>
+                    <span class="price" id="agua-price">12</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('agua')">-</button>
+                <button class="button" onclick="incrementCount('aguita')">Aguita
+                    <span class="count" id="aguita-count">0</span>
+                    <span class="price" id="aguita-price">6</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('aguita')">-</button>
+                <button class="button" onclick="incrementCount('refresco')">Refresco
+                    <span class="count" id="refresco-count">0</span>
+                    <span class="price" id="refresco-price">17</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('refresco')">-</button>
+            </div>
+        </div>
+        <div class="column extras">
+            <h2>EXTRAS</h2>
+            <div>
+                <button class="button" onclick="incrementCount('complementos')">Complementos
+                    <span class="count" id="complementos-count">0</span>
+                    <span class="price" id="complementos-price">5</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('complementos')">-</button>
+                <button class="button" onclick="incrementCount('queso')">Queso
+                    <span class="count" id="queso-count">0</span>
+                    <span class="price" id="queso-price">13</span>
+                </button>
+                <button class="decrease-button" onclick="decrementCount('queso')">-</button>
+            </div>
+        </div>
+    </div>
+    <div class="details-section">
+        <h2 style="background-color: black; color: white; display: inline-block; padding: 5px; border-radius: 5px;">DETALLES</h2>
+        <p class="details" id="details-summary">Aquí aparecerá el resumen de los elementos seleccionados.</p>
+    </div>
+    <div class="payment-section">
+        <label for="amount-paid">Pagado con:</label>
+        <input type="number" id="amount-paid" class="payment-input" placeholder="0" oninput="calculateChange()" />
+    </div>
+    <div class="total-section">
+        <h2 class="total-label">TOTAL: <span id="total-price" class="total-price">0</span>.Bs</h2>
+        <h2 class="change-label">CAMBIO: <span id="change-amount" class="total-price">0</span>.Bs</h2>
+    </div>
+
+    <script>
+        // Contadores de clics para cada botón
+        const counts = {
+            entero: 0,
+            medio: 0,
+            cerveza: 0,
+            litro: 0,
+            popular: 0,
+            jugo: 0,
+            agua: 0,
+            aguita: 0,
+            refresco: 0,
+            complementos: 0,
+            queso: 0
+        };
+
+        // Función para incrementar el conteo y actualizar el texto
+        function incrementCount(button) {
+            counts[button]++;
+            document.getElementById(button + '-count').innerText = counts[button];
+            updateSummary(); // Actualiza el resumen
+            updateTotal(); // Actualiza el total
+            calculateChange(); // Calcula el cambio
+        }
+
+        // Función para decrementar el conteo y actualizar el texto
+        function decrementCount(button) {
+            if (counts[button] > 0) {
+                counts[button]--;
+                document.getElementById(button + '-count').innerText = counts[button];
+                updateSummary(); // Actualiza el resumen
+                updateTotal(); // Actualiza el total
+                calculateChange(); // Calcula el cambio
+            }
+        }
+
+        // Función para actualizar el resumen de elementos
+        function updateSummary() {
+            let summary = 'Resumen de elementos:\n';
+            for (const [key, value] of Object.entries(counts)) {
+                if (value > 0) {
+                    summary += `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}\n`;
+                }
+            }
+            document.getElementById('details-summary').innerText = summary || 'No se han seleccionado elementos.';
+        }
+
+        // Función para actualizar el total de precios
+        function updateTotal() {
+            let total = 0;
+            total += counts.entero * 110;
+            total += counts.medio * 70;
+            total += counts.cerveza * 21;
+            total += counts.litro * 14;
+            total += counts.popular * 8;
+            total += counts.jugo * 15;
+            total += counts.agua * 12;
+            total += counts.aguita * 6;
+            total += counts.refresco * 17;
+            total += counts.complementos * 5;
+            total += counts.queso * 13;
+            document.getElementById('total-price').innerText = total;
+            return total; // Retornar el total para el cálculo del cambio
+        }
+
+        // Función para calcular el cambio
+        function calculateChange() {
+            const total = updateTotal(); // Obtener el total actualizado
+            const amountPaid = parseFloat(document.getElementById('amount-paid').value) || 0; // Obtener el monto pagado
+            const change = amountPaid - total; // Calcular el cambio
+            document.getElementById('change-amount').innerText = change >= 0 ? change.toFixed(2) : 0; // Mostrar cambio
+        }
+    </script>
+</body>
+</html>
